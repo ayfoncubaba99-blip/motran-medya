@@ -242,3 +242,134 @@ def r4():
 
 
 REELS['r4'] = r4
+
+
+def QR_SVG(boy=260, seed=7):
+    import random
+    rnd = random.Random(seed)
+    n = 25; c = boy / n
+    kare = ''
+    def bulucu(x, y):
+        return (f'<rect x="{x*c}" y="{y*c}" width="{7*c}" height="{7*c}" fill="#111"/><rect x="{(x+1)*c}" y="{(y+1)*c}" width="{5*c}" height="{5*c}" fill="#fff"/>'
+                f'<rect x="{(x+2)*c}" y="{(y+2)*c}" width="{3*c}" height="{3*c}" fill="#111"/>')
+    for i in range(n):
+        for j in range(n):
+            if (i < 8 and j < 8) or (i < 8 and j > n - 9) or (i > n - 9 and j < 8):
+                continue
+            if rnd.random() < 0.48:
+                kare += f'<rect x="{i*c:.1f}" y="{j*c:.1f}" width="{c+.3:.1f}" height="{c+.3:.1f}" fill="#111"/>'
+    return (f'<svg viewBox="0 0 {boy} {boy}" width="{boy}" height="{boy}" style="background:#fff;border-radius:18px;padding:0">'
+            + kare + bulucu(0, 0) + bulucu(n - 7, 0) + bulucu(0, n - 7) + '</svg>')
+
+
+# ---------------------------------------------------------------- R5 ZAM / SAHİBİNDEN FİYAT
+def r5():
+    S = 15600
+    FE = 5950 + OFF
+    g = ''
+    g += A('<div class="t o" style="font-size:150px">Zam geldi.</div>', -2000, 3950, 'fade', 'left:64px;top:250px')
+    g += SAYAC(1070, 3950, 0, 40, 1100, 2300, 'left:64px;top:420px;font-size:260px;line-height:.9', suf=' ilan', fx='pop')
+    g += A('<div class="t" style="font-size:84px">fiyatı değişecek.</div>', 1700, 3950, 'up', 'left:64px;top:680px')
+    g += A('<div class="t" style="font-size:130px">Tek tek</div><div class="t o" style="font-size:130px">mi?</div>', 4140, 5900, 'stamp', 'left:80px;top:420px', d=380, shake=1)
+    # güncelleme listesi
+    g += A('<div class="t" style="font-size:72px">MOTRAN<br><span class="o">sırayla günceller.</span></div>', 6000, 9750, 'blur', 'left:64px;top:270px')
+    g += A('<div class="kart" style="width:810px;height:600px"></div>', 6100, 9750, 'fade', 'left:64px;top:500px')
+    g += A('<div class="gri" style="font-size:24px;letter-spacing:3px;font-weight:800">İLAN FİYATLARINI GÜNCELLE · LİSTE FİYATI</div>', 6100, 9750, 'fade', 'left:96px;top:530px')
+    ilanlar = [('125cc Scooter', '68.900', '72.350'), ('150cc Naked', '94.500', '99.200'), ('50cc Scooter', '41.800', '43.900'),
+               ('250cc Enduro', '139.000', '145.900'), ('125cc Scooter', '68.900', '72.350')]
+    for i, (m, e, y) in enumerate(ilanlar):
+        t = 6300 + i * 330
+        g += A(f'<div class="sat" style="width:770px"><div style="font-weight:700">{m}</div>'
+               f'<div style="display:flex;gap:18px;align-items:center"><span class="gri" style="text-decoration:line-through;font-size:26px">{e}</span>'
+               f'<span style="font-weight:800" class="o">{y} ₺</span></div></div>', t, 9750, 'left', f'left:84px;top:{585 + i * 90}px', d=340)
+        g += A('<span class="y" style="font-size:34px;font-weight:900">✓</span>', t + 1500, 9750, 'pop', f'left:812px;top:{604 + i * 90}px', d=300)
+    g += SAYAC(7200, 9750, 0, 40, 7300, 9400, 'left:64px;top:1130px;font-size:56px;color:#3DDC84', pre='Güncellendi: ', suf=' ilan ✓', fx='up')
+    # giriş sizde
+    g += A('<div class="t" style="font-size:84px">Giriş ve doğrulama</div><div class="t o" style="font-size:84px">sizde.</div>', 9830, 12650, 'blur', 'left:64px;top:290px')
+    g += A('<div class="kart" style="width:810px;padding:30px 36px;display:flex;align-items:center;gap:26px">'
+           '<svg viewBox="0 0 24 24" width="70" height="70"><rect x="5" y="11" width="14" height="10" rx="2" fill="#FF8A00"/><path d="M8 11V8a4 4 0 0 1 8 0v3" stroke="#FF8A00" stroke-width="2.4" fill="none"/></svg>'
+           '<div><div style="font-size:38px;font-weight:800">Sahibinden girişi</div><div class="gri" style="font-size:28px;margin-top:4px">Şifre ve doğrulama kodunu siz girersiniz</div></div></div>',
+           10100, 12650, 'up', 'left:64px;top:540px')
+    g += A('<div class="cip">Ödeme yapılmaz, doping seçilmez.</div>', 10700, 12650, 'up', 'left:64px;top:730px')
+    g += A('<div class="t" style="font-size:96px">Gerisi <span class="o">otomatik.</span></div>', 11550, 12650, 'pop', 'left:64px;top:860px', d=450)
+    g += CTA(12790, S)
+    alt = ALTYAZI([(6000, 9750, 'MOTRAN fiyat listenizi alır, ilanları sırayla günceller.')])
+    golge = [[4100 + OFF, FE, 0.62]]
+    return dict(ad='r5_zam', sure=S, fe=FE, blur=(4.1 + OFF / 1000, FE / 1000), html=sayfa(g + alt, S, FE, golge, []),
+                flow='flow/zam.mp4', ses='ses/r5c.mp3',
+                vurgu=[0, 1070, 4140, 6000, 9830, 11550, 12790], vurus=[4140, 11550])
+
+
+# ---------------------------------------------------------------- R6 SERVİS
+def r6():
+    S = 18400
+    FE = 7300 + OFF
+    g = ''
+    g += A('<div class="t" style="font-size:104px">Müşteri</div><div class="t" style="font-size:104px">servise geldi.</div>', -2000, 3950, 'fade', 'left:64px;top:250px')
+    g += A('<div style="background:#fff;color:#111;border-radius:40px 40px 40px 10px;padding:34px 40px;font-size:54px;font-weight:800;line-height:1.15;width:800px">'
+           '"En son ne zaman bakım yaptırmıştım?"</div>', 1890, 3950, 'pop', 'left:64px;top:560px', d=520, shake=1)
+    g += A('<div class="t" style="font-size:120px">Defteri</div><div class="t o" style="font-size:120px">karıştırmayın.</div>', 4130, 5650, 'blur', 'left:64px;top:380px')
+    g += A('<div class="t" style="font-size:96px">Plakayı yazın.</div>', 5720, 7250, 'blur', 'left:64px;top:300px')
+    g += A('<div class="kart" style="width:810px;padding:36px 40px;display:flex;align-items:center;gap:22px">'
+           '<span style="background:#1E5BD8;color:#fff;font-weight:900;font-size:28px;padding:10px 12px;border-radius:8px">TR</span>'
+           '<span style="font-size:64px;font-weight:800;letter-spacing:4px;font-family:monospace"><span class="yz"></span><span class="crs o">|</span></span></div>',
+           5800, 7250, 'up', 'left:64px;top:480px', yaz='34 MTR 125', ys=6000, yh=80)
+    # araç geçmişi
+    g += A('<div class="t" style="font-size:72px">Aracın bütün<br><span class="o">geçmişi önünüzde.</span></div>', 7370, 11000, 'blur', 'left:64px;top:270px')
+    g += A('<div class="kart" style="width:810px;height:640px"></div>', 7470, 11000, 'fade', 'left:64px;top:500px')
+    g += A('<div style="font-size:40px;font-weight:800">125cc Scooter</div><div class="gri" style="font-size:26px;margin-top:6px">34 MTR 125 · Ahmet Y.</div>', 7470, 11000, 'fade', 'left:100px;top:530px')
+    gec = [('12.03.2025', 'Satış · teslim edildi', '#3DDC84'), ('02.06.2025', '1. bakım · yağ + filtre', '#FF8A00'),
+           ('18.11.2025', 'Fren balatası değişti', '#FF8A00'), ('Bugün', 'Ödemeler tamam ✓', '#3DDC84')]
+    for i, (tr, ac, c) in enumerate(gec):
+        g += A(f'<div style="display:flex;gap:24px;align-items:center;width:760px">'
+               f'<div style="width:22px;height:22px;border-radius:50%;background:{c};flex:none"></div>'
+               f'<div style="font-size:26px;width:180px" class="gri">{tr}</div><div style="font-size:32px;font-weight:700">{ac}</div></div>',
+               7900 + i * 650, 11000, 'left', f'left:104px;top:{660 + i * 112}px', d=360)
+    g += A('<div style="width:4px;height:340px;background:rgba(255,255,255,.15)"></div>', 7900, 11000, 'fade', 'left:113px;top:680px')
+    # karekod
+    g += A('<div class="t" style="font-size:80px">Parçayı<br><span class="o">karekodla okutun.</span></div>', 11200, 15250, 'blur', 'left:64px;top:270px')
+    g += A(QR_SVG(300), 11350, 15250, 'pop', 'left:64px;top:520px', d=450)
+    g += A('<div style="width:340px;height:6px;background:#FF3B30;box-shadow:0 0 24px #FF3B30;border-radius:3px"></div>', 11700, 12700, 'fade', 'left:44px;top:660px')
+    g += A('<div class="kart" style="width:440px;padding:24px 28px"><div class="gri" style="font-size:22px;letter-spacing:2px;font-weight:800">YP-0000184</div>'
+           '<div style="font-size:34px;font-weight:800;margin-top:6px">Yağ filtresi</div></div>', 12600, 15250, 'right', 'left:420px;top:540px')
+    g += A('<div class="t y" style="font-size:44px">✓ İş emrine eklendi</div>', 13200, 15250, 'up', 'left:64px;top:880px')
+    g += A('<div class="t y" style="font-size:44px">✓ Müşterinin carisine yazıldı</div>', 13900, 15250, 'up', 'left:64px;top:960px')
+    g += CTA(15440, S)
+    alt = ALTYAZI([(7370, 11000, 'Aracın geçmişi, takılan parçalar, ödemeler.')])
+    golge = [[4100 + OFF, FE, 0.6]]
+    return dict(ad='r6_servis', sure=S, fe=FE, blur=(4.1 + OFF / 1000, FE / 1000), html=sayfa(g + alt, S, FE, golge, []),
+                flow='flow/servis.mp4', ses='ses/r6.mp3',
+                vurgu=[0, 1890, 4130, 5720, 7370, 11200, 12600, 15440], vurus=[1890], tiklar=[12600])
+
+
+# ---------------------------------------------------------------- R7 MOTRAN'A SOR
+def r7():
+    S = 14700
+    FE = 5700 + OFF
+    g = ''
+    g += A('<div class="t" style="font-size:100px">Yeni personel</div><div class="t" style="font-size:100px">her şeyi <span class="o">size</span></div><div class="t" style="font-size:100px">mi soruyor?</div>',
+           -2000, 5650, 'fade', 'left:64px;top:250px')
+    sor = [('"Abi beyaz var mı?"', 2860), ('"12 taksit ne kadar?"', 4260)]
+    for i, (s_, t) in enumerate(sor):
+        g += A(f'<div style="display:flex;gap:20px;align-items:flex-end"><div style="width:70px;height:70px;border-radius:50%;background:#3A3632;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:32px">P</div>'
+               f'<div style="background:#fff;color:#111;border-radius:34px 34px 34px 8px;padding:26px 34px;font-size:46px;font-weight:800">{s_}</div></div>',
+               t, 5650, 'pop', f'left:64px;top:{640 + i * 170}px', d=480, shake=1)
+    g += A('<div class="t" style="font-size:130px">MOTRAN\'a</div><div class="t o" style="font-size:130px">sorsun.</div>', 5740, 7000, 'stamp', 'left:80px;top:470px', d=380, shake=1)
+    # MOTRAN'A SOR penceresi
+    g += A('<div class="t" style="font-size:72px">Stoğa ve fiyata bakıp<br><span class="o">anında cevaplar.</span></div>', 7130, 10050, 'blur', 'left:64px;top:270px')
+    g += A('<div class="kart" style="width:810px;height:600px"></div>', 7200, 10050, 'fade', 'left:64px;top:500px')
+    g += A('<div class="gri" style="font-size:24px;letter-spacing:3px;font-weight:800">MOTRAN\'A SOR</div>', 7200, 10050, 'fade', 'left:100px;top:530px')
+    g += A('<div style="background:#2A2724;border-radius:26px 26px 8px 26px;padding:22px 28px;font-size:34px;font-weight:600;width:620px;margin-left:110px">'
+           '<span class="yz"></span><span class="crs o">|</span></div>', 7300, 10050, 'right', 'left:100px;top:590px', yaz='125cc Scooter beyaz var mı, 12 taksit ne kadar?', ys=7400, yh=26)
+    g += A('<div style="background:#FF8A00;color:#111;border-radius:26px 26px 26px 8px;padding:24px 30px;font-size:34px;font-weight:700;line-height:1.3;width:700px">'
+           '2024 model elimizde <b>beyaz</b> rengi var: <b>2 adet</b>.<br>Nakit 72.350 ₺ · 12 taksit: <b>12 × 6.900 ₺</b></div>', 8800, 10050, 'left', 'left:100px;top:760px', d=450)
+    g += A('<div class="t" style="font-size:110px">Siz de</div><div class="t o" style="font-size:110px">işinize bakın.</div>', 10110, 11800, 'blur', 'left:64px;top:450px')
+    g += CTA(11890, S)
+    alt = ALTYAZI([(7130, 10050, 'Stoğa ve fiyat listesine bakıp anında cevaplar.')])
+    golge = [[2700 + OFF, FE, 0.58]]
+    return dict(ad='r7_sor', sure=S, fe=FE, blur=(2.7 + OFF / 1000, FE / 1000), html=sayfa(g + alt, S, FE, golge, []),
+                flow='flow/sor.mp4', ses='ses/r7.mp3',
+                vurgu=[0, 2860, 4260, 5740, 7130, 8800, 10110, 11890], vurus=[5740])
+
+
+REELS.update({'r5': r5, 'r6': r6, 'r7': r7})
