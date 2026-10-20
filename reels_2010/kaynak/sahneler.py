@@ -192,3 +192,53 @@ def r3():
 
 
 REELS = {'r1': r1, 'r2': r2, 'r3': r3}
+
+
+# ---------------------------------------------------------------- R4 TESLİM (ÖTV / FATURA / GARANTİ)
+def r4():
+    S = 20000
+    FE = 9300 + OFF
+    g = ''
+    g += A('<div class="t" style="font-size:118px">Müşteri kapıda.</div>', -2000, 2950, 'fade', 'left:64px;top:250px')
+    g += A('<div class="t o" style="font-size:132px">Teslime hazır.</div>', 1230, 2950, 'pop', 'left:64px;top:390px', d=520, shake=1)
+    # ama önce
+    g += A('<div class="t" style="font-size:96px">Ama <span class="o">önce…</span></div>', 3070, 7150, 'blur', 'left:64px;top:290px')
+    isler = [('ÖTV BEYANNAMESİ', 'GİB', 3600), ('FATURA', 'e-Fatura / e-Arşiv', 4900), ('GARANTİ', 'Tedarikçi portalı', 5800)]
+    for i, (ad, yer, t) in enumerate(isler):
+        g += A(f'<div class="kart" style="width:790px;padding:30px 36px;display:flex;justify-content:space-between;align-items:center">'
+               f'<div><div style="font-size:40px;font-weight:800">{ad}</div><div class="gri" style="font-size:28px;margin-top:6px">{yer}</div></div>'
+               f'<div style="font-size:30px;font-weight:700;color:#FFB347">bekliyor</div></div>', t, 7150, 'left', f'left:64px;top:{470 + i * 175}px')
+    # ayrı ekran ayrı giriş
+    g += A('<div class="t" style="font-size:110px">Hepsi</div><div class="t" style="font-size:110px">ayrı ekran,</div><div class="t o" style="font-size:110px">ayrı giriş.</div>', 7310, 9250, 'blur', 'left:64px;top:300px')
+    for i, (ad, x, y, r) in enumerate([('GİB', 120, 760, -7), ('e-Fatura', 380, 820, 5), ('Garanti portalı', 200, 930, -3)]):
+        g += A(f'<div class="kart" style="width:420px;overflow:hidden"><div style="background:#2A2724;padding:14px 20px;font-size:26px;font-weight:700;display:flex;gap:10px;align-items:center">'
+               f'<span style="width:14px;height:14px;border-radius:50%;background:#FF5A4F;display:inline-block"></span>{ad}</div>'
+               f'<div style="padding:22px 20px"><div style="height:16px;background:rgba(255,255,255,.12);border-radius:8px;margin-bottom:14px"></div>'
+               f'<div style="height:16px;width:70%;background:rgba(255,255,255,.12);border-radius:8px"></div></div></div>',
+               7700 + i * 380, 9250, 'pop', f'left:{x}px;top:{y}px', d=420, base=f' rotate({r}deg)')
+    # şaseyi yazın
+    g += A('<div class="t" style="font-size:80px">Şaseyi yazın,<br><span class="o">HEPSİNİ ÇALIŞTIR.</span></div>', 9520, 12500, 'blur', 'left:64px;top:280px')
+    g += A('<div class="kart" style="width:810px;padding:34px 36px;display:flex;align-items:center;gap:20px"><span class="gri" style="font-size:30px;font-weight:800;letter-spacing:2px">ŞASE</span>'
+           '<span style="font-size:46px;font-weight:700;font-family:monospace"><span class="yz"></span><span class="crs o">|</span></span></div>',
+           9700, 12500, 'up', 'left:64px;top:540px', yaz='LBB•••••••01404', ys=9900, yh=55)
+    g += A('<div class="dug" style="width:810px;font-size:46px;padding:34px 0">▶  HEPSİNİ ÇALIŞTIR</div>', 10500, 12500, 'pop', 'left:64px;top:720px', d=450)
+    # adımlar
+    g += A('<div class="t" style="font-size:80px">Formlar dolar,<br><span class="o">onay sizde.</span></div>', 12650, 15500, 'blur', 'left:64px;top:280px')
+    adim = [('1', 'ÖTV', 'GİB formu dolduruldu', 12900), ('2', 'FATURA', 'Fatura bilgileri hazır', 13500), ('3', 'GARANTİ', 'Portal formu dolduruldu', 14100)]
+    for i, (n, ad, ac, t) in enumerate(adim):
+        g += A(f'<div class="kart" style="width:810px;padding:26px 32px;display:flex;align-items:center;gap:26px">'
+               f'<div style="width:74px;height:74px;border-radius:50%;background:rgba(61,220,132,.16);border:3px solid #3DDC84;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:900;color:#3DDC84">✓</div>'
+               f'<div><div style="font-size:38px;font-weight:800">{n} · {ad}</div><div class="gri" style="font-size:28px;margin-top:4px">{ac}</div></div></div>',
+               t, 15500, 'left', f'left:64px;top:{530 + i * 165}px')
+    g += A('<div class="cip">GİB\'de ONAYLA\'ya siz basarsınız.</div>', 14600, 15500, 'up', 'left:64px;top:1040px')
+    g += A('<div class="t" style="font-size:132px">Müşteriyi</div><div class="t o" style="font-size:132px">bekletmeyin.</div>', 15660, 16950, 'stamp', 'left:70px;top:520px', d=380, shake=1)
+    g += CTA(17150, S)
+    alt = ALTYAZI([(3070, 7150, 'ÖTV beyannamesi, fatura, garanti…'), (9520, 12500, 'MOTRAN\'da şaseyi yazın, hepsini çalıştır deyin.')])
+    im = [imlec(1, 10700, 12200, 900, 1450, 470, 760, 11400)]
+    golge = [[3050 + OFF, FE, 0.62]]
+    return dict(ad='r4_teslim', sure=S, fe=FE, blur=(3.05 + OFF / 1000, FE / 1000), html=sayfa(g + alt, S, FE, golge, im),
+                flow='flow/teslim.mp4', ses='ses/r4.mp3',
+                vurgu=[0, 1230, 3070, 7310, 9520, 12650, 15660, 17150], vurus=[1230, 15660], tiklar=[11400])
+
+
+REELS['r4'] = r4
