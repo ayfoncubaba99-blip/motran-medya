@@ -4,3 +4,4 @@ tmp_*
 on_*.jpg
 log_*.txt
 __pycache__/
+cikti/
