@@ -1,0 +1,6 @@
+kare_*/
+tmp_*
+*.html
+on_*.jpg
+log_*.txt
+__pycache__/
