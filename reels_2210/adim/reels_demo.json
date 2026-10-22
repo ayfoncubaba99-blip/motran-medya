@@ -1,0 +1,103 @@
+[
+ {
+  "id": "demo_4adim",
+  "hook_no": 11,
+  "tur": "DUYURU",
+  "ses": "[excited] MOTRAN'ı denemek dört adım. [playful] Bir: sitemizden üye olun. İki: demoya girin, kurulum yok. Üç: bir araç satın, stok ve raporlar anında değişsin. Dört: Sahibinden, fatura, servis; bütün ekranları gezin. [excited] Yedi gün ücretsiz. DM'den DEMO yazın.",
+  "sahneler": [
+   {
+    "tip": "hook",
+    "sure": 1900,
+    "kick": "YENİ · DEMO YAYINDA",
+    "metin": "MOTRAN'ı denemek *4 adım.*",
+    "ornek": true
+   },
+   {
+    "tip": "buyuk",
+    "sure": 2250,
+    "kick": "ADIM 1 / 4",
+    "metin": "Sitemizden *üye olun.*",
+    "alt": "Ad, firma, telefon, e-posta. Bu kadar.",
+    "ornek": true
+   },
+   {
+    "tip": "buyuk",
+    "sure": 2600,
+    "kick": "ADIM 2 / 4",
+    "metin": "Demoya girin, *kurulum yok.*",
+    "alt": "Tarayıcıda açılır. Kart bilgisi istenmez.",
+    "ornek": true
+   },
+   {
+    "tip": "kart",
+    "sure": 4200,
+    "kick": "ADIM 3 / 4",
+    "ornek": true,
+    "baslik": "Bir araç satın, *her şey değişsin.*",
+    "aralik": 700,
+    "satirlar": [
+     [
+      "Stok",
+      "100 → 99",
+      "ok"
+     ],
+     [
+      "Kontrol paneli",
+      "güncellendi",
+      "ok"
+     ],
+     [
+      "Satış raporu",
+      "+1 satış",
+      "ok"
+     ]
+    ]
+   },
+   {
+    "tip": "liste",
+    "sure": 4350,
+    "kick": "ADIM 4 / 4",
+    "baslik": "*Bütün ekranları* gezin:",
+    "zaman": [
+     650,
+     1500,
+     2300,
+     3100
+    ],
+    "maddeler": [
+     [
+      "✓",
+      "Sahibinden işlemleri"
+     ],
+     [
+      "✓",
+      "Fatura ve ÖTV"
+     ],
+     [
+      "✓",
+      "Servis"
+     ],
+     [
+      "+",
+      "ve diğer bütün ekranlar"
+     ]
+    ],
+    "ornek": true
+   },
+   {
+    "tip": "buyuk",
+    "sure": 1600,
+    "metin": "*7 gün* ücretsiz.",
+    "ornek": true
+   },
+   {
+    "tip": "cta",
+    "sure": 2500,
+    "metin": "DM'den *DEMO* yazın.",
+    "dugme": "DM'den DEMO yazın",
+    "kucuk": "Linki gönderelim · @motranyazilim",
+    "ornek": true
+   }
+  ]
+ }
+]
